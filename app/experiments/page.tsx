@@ -1,7 +1,14 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { ExperimentList } from './components/experiment-list'
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { ExperimentList } from "@/components/experiment-list";
 
 export default function ExperimentsPage() {
   return (
@@ -14,6 +21,5 @@ export default function ExperimentsPage() {
       </div>
       <ExperimentList />
     </div>
-  )
+  );
 }
-

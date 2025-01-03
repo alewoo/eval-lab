@@ -1,0 +1,40 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String    @unique
+  password      String
+  experiments   Experiment[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Experiment {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  systemPrompt  String
+  llmModel      String
+  userId        String    @db.ObjectId
+  user          User      @relation(fields: [userId], references: [id])
+  testCases     TestCase[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model TestCase {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  userMessage   String
+  expectedOutput String
+  experimentId  String    @db.ObjectId
+  experiment    Experiment @relation(fields: [experimentId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
